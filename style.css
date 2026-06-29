@@ -307,3 +307,23 @@ button:disabled {
     grid-template-columns: 1fr;
   }
 }
+.footer{
+    position: fixed;
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: rgba(255,255,255,.65);
+    font-size: 13px;
+    letter-spacing: .5px;
+    user-select: none;
+}
+
+.footer strong{
+    color: #ffffff;
+    font-weight: 600;
+}
+
+.footer:hover{
+    color: white;
+    transition: .2s;
+}
