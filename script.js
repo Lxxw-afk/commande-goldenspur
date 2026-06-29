@@ -1,131 +1,390 @@
-const WEBHOOK_URL = "https://discord.com/api/webhooks/1521049796742479953/6v3Bh7X-m18pF-Zh5drP-4vWpbTFSBKPQRpc9ouBErANkeEClM_y9yswG9FWlo4vmzU7";
+// ========================= CONFIG =========================
 
+const WEBHOOK_URL = "https://discord.com/api/webhooks/1521049796742479953/6v3Bh7X-m18pF-Zh5drP-4vWpbTFSBKPQRpc9ouBErANkeEClM_y9yswG9FWlo4vmzU7";
 const PRICE_KNIFE = 6500;
 
-const form = document.getElementById("orderForm");
+// ========================= ELEMENTS =========================
+
 const orderType = document.getElementById("orderType");
+
 const knifeSection = document.getElementById("knifeSection");
 const contractSection = document.getElementById("contractSection");
+
 const knifeQuantity = document.getElementById("knifeQuantity");
 const totalPrice = document.getElementById("totalPrice");
-const statusMessage = document.getElementById("statusMessage");
+
+const previewButton = document.getElementById("previewButton");
+
+const summaryModal = document.getElementById("summaryModal");
+const summaryContent = document.getElementById("summaryContent");
+
+const editButton = document.getElementById("editButton");
+const confirmButton = document.getElementById("confirmButton");
+
+const successOverlay = document.getElementById("successOverlay");
+
+let currentPayload = null;
+
+// ========================= PRIX =========================
 
 function formatPrice(price) {
-  return price.toLocaleString("fr-FR") + "€";
+
+    return price.toLocaleString("fr-FR") + "€";
+
 }
 
 function updatePrice() {
-  const quantity = Math.max(1, Number(knifeQuantity.value || 1));
-  const total = quantity * PRICE_KNIFE;
-  totalPrice.textContent = formatPrice(total);
+
+    const quantity = Math.max(1, Number(knifeQuantity.value));
+
+    totalPrice.textContent = formatPrice(quantity * PRICE_KNIFE);
+
 }
+
+// ========================= AFFICHAGE =========================
 
 function updateSections() {
-  if (orderType.value === "couteau") {
-    knifeSection.classList.remove("hidden");
-    contractSection.classList.add("hidden");
-  } else {
-    knifeSection.classList.add("hidden");
-    contractSection.classList.remove("hidden");
-  }
-}
 
-knifeQuantity.addEventListener("input", updatePrice);
-orderType.addEventListener("change", updateSections);
+    if(orderType.value === "couteaux"){
 
-form.addEventListener("submit", async (event) => {
-  event.preventDefault();
+        knifeSection.style.display = "block";
+        contractSection.style.display = "none";
 
-  if (WEBHOOK_URL === "TON_WEBHOOK_DISCORD_ICI") {
-    showMessage("Ajoute ton webhook Discord dans script.js avant d’envoyer.", "error");
-    return;
-  }
-
-  const clientName = document.getElementById("clientName").value.trim();
-  const phoneNumber = document.getElementById("phoneNumber").value.trim();
-  const extraInfo = document.getElementById("extraInfo").value.trim();
-  const type = orderType.value;
-
-  let embed;
-
-  if (type === "couteau") {
-    const quantity = Math.max(1, Number(knifeQuantity.value || 1));
-    const total = quantity * PRICE_KNIFE;
-
-    embed = {
-      title: "Nouvelle commande ",
-      color: 12000284,
-      fields: [
-        { name: "Client ", value: clientName, inline: true },
-        { name: "Téléphone", value: phonenumber, inline: true },
-        { name: "Type", value: "Couteau", inline: true },
-        { name: "Quantité", value: String(quantity), inline: true },
-        { name: "Prix total", value: formatPrice(total), inline: true },
-        { name: "Infos supplémentaires", value: extraInfo || "Aucune information" }
-      ],
-      timestamp: new Date().toISOString()
-    };
-  } else {
-    const contractPoint = document.getElementById("contractPoint").value.trim();
-    const contractDetails = document.getElementById("contractDetails").value.trim();
-
-    embed = {
-      title: "Nouveau contrat RP",
-      color: 5814783,
-      fields: [
-        { name: "Client RP", value: clientName, inline: true },
-        { name: "Discord", value: discordName, inline: true },
-        { name: "Type", value: "Contrat point de drogue", inline: true },
-        { name: "Point concerné", value: contractPoint || "Non précisé" },
-        { name: "Détails du contrat", value: contractDetails || "Non précisé" },
-        { name: "Infos supplémentaires", value: extraInfo || "Aucune information" }
-      ],
-      timestamp: new Date().toISOString()
-    };
-  }
-
-  const payload = {
-    username: "Commandes RP",
-    embeds: [embed]
-  };
-
-  try {
-    setButtonState(true);
-
-    const response = await fetch(WEBHOOK_URL, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(payload)
-    });
-
-    if (!response.ok) {
-      throw new Error("Erreur Discord");
     }
 
-    form.reset();
-    knifeQuantity.value = 1;
-    updatePrice();
-    updateSections();
-    showMessage("Commande envoyée avec succès.", "success");
-  } catch (error) {
-    showMessage("Erreur lors de l’envoi de la commande.", "error");
-  } finally {
-    setButtonState(false);
-  }
+    else{
+
+        knifeSection.style.display = "none";
+        contractSection.style.display = "block";
+
+    }
+
+}
+
+// ========================= RECUPERATION =========================
+
+function getData(){
+
+    const data = {
+
+        nom : document.getElementById("clientName").value,
+        telephone : document.getElementById("phoneNumber").value,
+        type : orderType.value,
+        infos : document.getElementById("extraInfo").value
+
+    };
+
+    if(data.type === "couteaux"){
+
+        data.quantite = knifeQuantity.value;
+        data.total = knifeQuantity.value * PRICE_KNIFE;
+
+    }
+
+    else{
+
+        data.point = document.getElementById("contractPoint").value;
+        data.details = document.getElementById("contractDetails").value;
+
+    }
+
+    return data;
+
+}
+
+// ========================= RECAP =========================
+
+previewButton.addEventListener("click",()=>{
+
+    const data = getData();
+
+    if(data.nom === "" || data.telephone === ""){
+
+        alert("Merci de remplir tous les champs obligatoires.");
+
+        return;
+
+    }
+
+    if(data.type === "couteaux"){
+
+        summaryContent.innerHTML = `
+
+        <div class="summaryLine">
+
+            <strong>Nom</strong>
+
+            ${data.nom}
+
+        </div>
+
+        <div class="summaryLine">
+
+            <strong>Téléphone</strong>
+
+            ${data.telephone}
+
+        </div>
+
+        <div class="summaryLine">
+
+            <strong>Produit</strong>
+
+            Couteaux
+
+        </div>
+
+        <div class="summaryLine">
+
+            <strong>Quantité</strong>
+
+            ${data.quantite}
+
+        </div>
+
+        <div class="summaryLine">
+
+            <strong>Total</strong>
+
+            ${formatPrice(data.total)}
+
+        </div>
+
+        `;
+
+    }
+
+    else{
+
+        summaryContent.innerHTML = `
+
+        <div class="summaryLine">
+
+            <strong>Nom</strong>
+
+            ${data.nom}
+
+        </div>
+
+        <div class="summaryLine">
+
+            <strong>Téléphone</strong>
+
+            ${data.telephone}
+
+        </div>
+
+        <div class="summaryLine">
+
+            <strong>Contrat</strong>
+
+            ${data.point}
+
+        </div>
+
+        <div class="summaryLine">
+
+            <strong>Détails</strong>
+
+            ${data.details}
+
+        </div>
+
+        `;
+
+    }
+
+    currentPayload = data;
+
+    summaryModal.classList.remove("hidden");
+
 });
 
-function setButtonState(disabled) {
-  const button = form.querySelector("button");
-  button.disabled = disabled;
-  button.textContent = disabled ? "Envoi en cours..." : "Envoyer la commande";
-}
+// ========================= FERMER =========================
 
-function showMessage(message, type) {
-  statusMessage.textContent = message;
-  statusMessage.className = type;
-}
+editButton.addEventListener("click",()=>{
+
+    summaryModal.classList.add("hidden");
+
+});
+
+// ========================= ENVOI DISCORD =========================
+
+confirmButton.addEventListener("click",async()=>{
+
+    let embed;
+
+    if(currentPayload.type === "couteaux"){
+
+        embed = {
+
+            title:"🔪 Nouvelle commande",
+
+            color:15158332,
+
+            fields:[
+
+                {
+
+                    name:"👤 Client",
+
+                    value:currentPayload.nom,
+
+                    inline:true
+
+                },
+
+                {
+
+                    name:"📞 Téléphone",
+
+                    value:currentPayload.telephone,
+
+                    inline:true
+
+                },
+
+                {
+
+                    name:"📦 Quantité",
+
+                    value:String(currentPayload.quantite),
+
+                    inline:true
+
+                },
+
+                {
+
+                    name:"💰 Total",
+
+                    value:formatPrice(currentPayload.total),
+
+                    inline:true
+
+                },
+
+                {
+
+                    name:"📝 Informations",
+
+                    value:currentPayload.infos || "Aucune"
+
+                }
+
+            ]
+
+        };
+
+    }
+
+    else{
+
+        embed = {
+
+            title:"📍 Nouveau contrat",
+
+            color:3066993,
+
+            fields:[
+
+                {
+
+                    name:"👤 Client",
+
+                    value:currentPayload.nom,
+
+                    inline:true
+
+                },
+
+                {
+
+                    name:"📞 Téléphone",
+
+                    value:currentPayload.telephone,
+
+                    inline:true
+
+                },
+
+                {
+
+                    name:"📍 Point",
+
+                    value:currentPayload.point || "Aucun"
+
+                },
+
+                {
+
+                    name:"📝 Détails",
+
+                    value:currentPayload.details || "Aucun"
+
+                },
+
+                {
+
+                    name:"📄 Informations",
+
+                    value:currentPayload.infos || "Aucune"
+
+                }
+
+            ]
+
+        };
+
+    }
+
+    await fetch(WEBHOOK_URL,{
+
+        method:"POST",
+
+        headers:{
+
+            "Content-Type":"application/json"
+
+        },
+
+        body:JSON.stringify({
+
+            username:"Commandes RP",
+
+            embeds:[embed]
+
+        })
+
+    });
+
+    summaryModal.classList.add("hidden");
+
+    successOverlay.classList.remove("hidden");
+
+    setTimeout(()=>{
+
+        successOverlay.classList.add("hidden");
+
+        document.getElementById("orderForm").reset();
+
+        knifeQuantity.value = 1;
+
+        updatePrice();
+
+        updateSections();
+
+    },2500);
+
+});
+
+// ========================= EVENTS =========================
+
+knifeQuantity.addEventListener("input",updatePrice);
+
+orderType.addEventListener("change",updateSections);
+
+// ========================= DEMARRAGE =========================
 
 updatePrice();
 updateSections();
