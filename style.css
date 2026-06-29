@@ -412,22 +412,66 @@ button:disabled {
   }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 600px) {
   body {
-    padding: 15px;
+    min-height: 100vh;
+    height: auto;
+    overflow-y: auto;
+    padding: 12px;
     align-items: flex-start;
+    background-attachment: scroll;
+  }
+
+  .container {
+    max-width: 100%;
   }
 
   .card {
-    padding: 20px;
+    padding: 16px;
+    border-radius: 16px;
   }
 
   .header h1 {
-    font-size: 26px;
+    font-size: 24px;
+  }
+
+  .header p,
+  .warning {
+    font-size: 12px;
+  }
+
+  form {
+    gap: 7px;
+  }
+
+  input,
+  select,
+  textarea {
+    padding: 9px;
+    font-size: 14px;
+  }
+
+  textarea {
+    min-height: 65px;
   }
 
   .choiceButtons {
     flex-direction: column;
+    gap: 8px;
+  }
+
+  button {
+    padding: 11px;
+    font-size: 14px;
+  }
+
+  .cartBox {
+    padding: 12px;
+  }
+
+  .modalContent {
+    max-height: 90vh;
+    overflow-y: auto;
   }
 
   .modalActions {
@@ -435,8 +479,9 @@ button:disabled {
   }
 
   .footer {
+    position: static;
+    text-align: center;
+    margin-top: 12px;
     font-size: 11px;
-    right: 10px;
-    bottom: 8px;
   }
 }
