@@ -202,7 +202,7 @@ previewButton.addEventListener("click", () => {
 
  currentPayload = {
   username: "Golden Spur | Commandes",
-  avatar_url: "https://chatgpt.com/backend-api/estuary/content?id=file_00000000210471f4b938e6a9d8ad4c9f&ts=495209&p=fs&cid=1&sig=44c54e723eccc25d5672ced83b80e5f0f40582fce9eab9fbcde468c9f66972ed&v=0",
+  avatar_url: "https://cdn.discordapp.com/attachments/1328118372054995097/1503481676737679410/CA0282A5-9778-484E-A9B4-57F894941DE1.png?ex=6a4372ad&is=6a42212d&hm=e65e33cc9db54bec81af1da9fa31859ccf8db6d99ce4fcd5791204bab4b64dc4",
   embeds: [
     {
       title: "📦 Nouvelle commande reçue",
