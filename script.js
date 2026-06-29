@@ -7,9 +7,7 @@ const groupNameInput = document.getElementById("groupName");
 const phoneNumberInput = document.getElementById("phoneNumber");
 const extraInfoInput = document.getElementById("extraInfo");
 
-const minusKnife = document.getElementById("minusKnife");
-const plusKnife = document.getElementById("plusKnife");
-const knifeQuantityDisplay = document.getElementById("knifeQuantityDisplay");
+const knifeQuantityInput = document.getElementById("knifeQuantityInput");
 const addKnivesButton = document.getElementById("addKnivesButton");
 
 const lsdType = document.getElementById("lsdType");
@@ -26,16 +24,11 @@ const confirmButton = document.getElementById("confirmButton");
 const successOverlay = document.getElementById("successOverlay");
 const form = document.getElementById("orderForm");
 
-let knifeQuantity = 1;
 let cart = [];
 let currentPayload = null;
 
 function formatPrice(price) {
   return price.toLocaleString("fr-FR") + "€";
-}
-
-function updateKnifeDisplay() {
-  knifeQuantityDisplay.textContent = knifeQuantity;
 }
 
 function updateCart() {
@@ -74,32 +67,20 @@ function removeItem(index) {
   updateCart();
 }
 
-minusKnife.addEventListener("click", () => {
-  if (knifeQuantity > 1) {
-    knifeQuantity--;
-    updateKnifeDisplay();
-  }
-});
-
-plusKnife.addEventListener("click", () => {
-  knifeQuantity++;
-  updateKnifeDisplay();
-});
-
 addKnivesButton.addEventListener("click", () => {
-  const total = knifeQuantity * PRICE_KNIFE;
+  const quantity = Math.max(1, Number(knifeQuantityInput.value || 1));
+  const total = quantity * PRICE_KNIFE;
 
   cart.push({
     type: "couteaux",
     name: "🔪 Couteaux",
-    quantity: knifeQuantity,
+    quantity: quantity,
     price: PRICE_KNIFE,
     total: total,
-    description: `${knifeQuantity} x ${formatPrice(PRICE_KNIFE)} = ${formatPrice(total)}`
+    description: `${quantity} x ${formatPrice(PRICE_KNIFE)} = ${formatPrice(total)}`
   });
 
-  knifeQuantity = 1;
-  updateKnifeDisplay();
+  knifeQuantityInput.value = 1;
   updateCart();
 });
 
@@ -270,10 +251,9 @@ confirmButton.addEventListener("click", async () => {
 
       form.reset();
       cart = [];
-      knifeQuantity = 1;
       currentPayload = null;
+      knifeQuantityInput.value = 1;
 
-      updateKnifeDisplay();
       updateCart();
     }, 2500);
   } catch (error) {
@@ -284,5 +264,4 @@ confirmButton.addEventListener("click", async () => {
   confirmButton.textContent = "Valider la commande";
 });
 
-updateKnifeDisplay();
 updateCart();
