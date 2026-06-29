@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Commande Golden Spur</title>
+  <title>Golden Spur - Commandes</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
@@ -12,7 +12,7 @@
     <section class="card">
 
       <div class="header">
-        <h1>Commande Golden Spur</h1>
+        <h1>Golden Spur</h1>
         <p>Commandez rapidement, nous nous chargeons du reste.</p>
       </div>
 
@@ -23,45 +23,61 @@
       <form id="orderForm">
 
         <label for="clientName">Nom / Prénom</label>
-        <input type="text" id="clientName" placeholder="Ex : John Lefevbre" required />
+        <input type="text" id="clientName" placeholder="Ex : John Lefebvre " required />
+
+        <label for="groupName">Groupe</label>
+        <input type="text" id="groupName" placeholder="Ex : Indépendant, Golden Spur..." required />
 
         <label for="phoneNumber">Numéro de téléphone</label>
-        <input type="text" id="phoneNumber" placeholder="Ex : 06 12 33 45 96 " required />
+        <input type="text" id="phoneNumber" placeholder="Ex : 06 12 12 34 45" required />
 
-        <label for="orderType">Type de demande</label>
-        <select id="orderType" required>
-          <option value="couteaux">Couteaux</option>
-          <option value="contrat">Contrat point de drogue</option>
-        </select>
+        <div class="shopSection">
+          <h2>🔪 Couteaux</h2>
 
-        <div id="knifeSection">
-          <label for="knifeQuantity">Nombre de couteaux</label>
-          <input type="number" id="knifeQuantity" min="1" value="1" />
-
-          <div class="priceBox">
-            Prix total : <span id="totalPrice">6 500€</span>
+          <div class="quantityBox">
+            <button type="button" id="minusKnife">-</button>
+            <span id="knifeQuantityDisplay">1</span>
+            <button type="button" id="plusKnife">+</button>
           </div>
+
+          <p class="productPrice">6 500€ / unité</p>
+
+          <button type="button" id="addKnivesButton">
+            Ajouter les couteaux au panier
+          </button>
         </div>
 
-        <div id="contractSection" style="display: none;">
-          <label for="contractPoint">Point concerné</label>
-          <input
-            type="text"
-            id="contractPoint"
-            placeholder="LSD uniquement"
-          />
+        <div class="shopSection">
+          <h2>🧪 Contrat LSD</h2>
 
-          <label for="contractDetails">Détails du contrat</label>
-          <textarea
-            id="contractDetails"
-            placeholder="Explique la demande RP..."
-          ></textarea>
+          <label for="lsdType">Type de contrat</label>
+          <select id="lsdType">
+            <option value="cite" data-name="LSD - Cité / Famille" data-price="150000">
+              LSD - Cité / Famille — 150 000€
+            </option>
+            <option value="independant" data-name="LSD - Indépendant" data-price="75000">
+              LSD - Indépendant — 75 000€
+            </option>
+          </select>
+
+          <button type="button" id="addLsdButton">
+            Ajouter le contrat au panier
+          </button>
+        </div>
+
+        <div class="cartBox">
+          <h2>🛒 Votre panier</h2>
+          <div id="cartItems"></div>
+
+          <div class="cartTotal">
+            Total : <span id="cartTotal">0€</span>
+          </div>
         </div>
 
         <label for="extraInfo">Informations supplémentaires</label>
         <textarea
           id="extraInfo"
-          placeholder="Disponibilités, numéro de téléphone complémentaire, détails utiles..."
+          placeholder="Disponibilités, lieu de rendez-vous RP, détails utiles..."
         ></textarea>
 
         <button type="button" id="previewButton">
@@ -79,8 +95,13 @@
       <div id="summaryContent"></div>
 
       <div class="modalActions">
-        <button type="button" id="editButton" class="secondaryButton">Modifier</button>
-        <button type="button" id="confirmButton">Valider la commande</button>
+        <button type="button" id="editButton" class="secondaryButton">
+          Modifier
+        </button>
+
+        <button type="button" id="confirmButton">
+          Valider la commande
+        </button>
       </div>
     </div>
   </div>
@@ -89,15 +110,14 @@
     <div class="successBox">
       <div class="checkmark">✓</div>
       <h2>Commande envoyée</h2>
-      <p>La demande a bien été transmise au Fournisseur.</p>
+      <p>La demande a bien été transmise sur Discord.</p>
     </div>
   </div>
 
-  <script src="script.js"></script>
-
   <footer class="footer">
-    Créé par <strong>Le Chrétien</strong> | <strong>Laaw.</strong>
-</footer>
-  
+    Créé par <strong>Le Chrétien</strong> | <strong>Laaw</strong>
+  </footer>
+
+  <script src="script.js"></script>
 </body>
 </html>
