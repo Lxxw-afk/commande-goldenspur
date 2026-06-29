@@ -1,0 +1,157 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #111, #2b1414);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.container {
+  width: 100%;
+  max-width: 520px;
+}
+
+.card {
+  background: rgba(20, 20, 20, 0.92);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 18px;
+  padding: 28px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.header h1 {
+  font-size: 32px;
+  margin-bottom: 6px;
+  letter-spacing: 1px;
+}
+
+.header p {
+  color: #cfcfcf;
+  font-size: 14px;
+}
+
+.warning {
+  background: rgba(255, 180, 0, 0.12);
+  border: 1px solid rgba(255, 180, 0, 0.4);
+  color: #ffd27a;
+  padding: 12px;
+  border-radius: 12px;
+  font-size: 13px;
+  margin-bottom: 20px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+label {
+  font-size: 14px;
+  color: #e7e7e7;
+  margin-top: 4px;
+}
+
+input,
+select,
+textarea {
+  width: 100%;
+  border: none;
+  outline: none;
+  border-radius: 10px;
+  padding: 13px;
+  background: #2b2b2b;
+  color: white;
+  font-size: 15px;
+}
+
+textarea {
+  resize: vertical;
+  min-height: 90px;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  box-shadow: 0 0 0 2px #b91c1c;
+}
+
+.priceBox {
+  background: #151515;
+  border: 1px solid #333;
+  border-radius: 12px;
+  padding: 14px;
+  margin-top: 10px;
+  font-size: 17px;
+}
+
+.priceBox span {
+  color: #ff4d4d;
+  font-weight: bold;
+}
+
+button {
+  margin-top: 10px;
+  border: none;
+  border-radius: 12px;
+  padding: 15px;
+  background: #b91c1c;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+button:hover {
+  background: #dc2626;
+  transform: translateY(-1px);
+}
+
+button:disabled {
+  background: #555;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.hidden {
+  display: none;
+}
+
+#statusMessage {
+  text-align: center;
+  font-size: 14px;
+  margin-top: 8px;
+}
+
+.success {
+  color: #4ade80;
+}
+
+.error {
+  color: #f87171;
+}
+
+@media (max-width: 480px) {
+  .card {
+    padding: 22px;
+  }
+
+  .header h1 {
+    font-size: 26px;
+  }
+}
