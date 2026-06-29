@@ -11,10 +11,10 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 25px;
+  padding: 20px;
 
   background:
-    linear-gradient(rgba(0, 0, 0, 0.72), rgba(0, 0, 0, 0.85)),
+    linear-gradient(rgba(0,0,0,.45), rgba(0,0,0,.55)),
     url("images/Golden.png");
 
   background-size: cover;
@@ -24,27 +24,26 @@ body {
 
 .container {
   width: 100%;
-  max-width: 620px;
+  max-width: 560px;
 }
 
 .card {
-  background: rgba(18, 18, 18, 0.92);
-  border: 1px solid rgba(255, 255, 255, 0.13);
+  background: rgba(18,18,18,.92);
+  border: 1px solid rgba(255,255,255,.13);
   border-radius: 18px;
-  padding: 28px;
-  box-shadow: 0 20px 70px rgba(0, 0, 0, 0.55);
+  padding: 24px;
+  box-shadow: 0 20px 70px rgba(0,0,0,.55);
   backdrop-filter: blur(8px);
 }
 
 .header {
   text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: 16px;
 }
 
 .header h1 {
-  font-size: 34px;
+  font-size: 30px;
   margin-bottom: 6px;
-  letter-spacing: 1px;
 }
 
 .header p {
@@ -53,26 +52,25 @@ body {
 }
 
 .warning {
-  background: rgba(255, 180, 0, 0.12);
-  border: 1px solid rgba(255, 180, 0, 0.4);
+  background: rgba(255,180,0,.12);
+  border: 1px solid rgba(255,180,0,.4);
   color: #ffd27a;
-  padding: 12px;
+  padding: 10px;
   border-radius: 12px;
   font-size: 13px;
-  margin-bottom: 20px;
+  margin-bottom: 16px;
   text-align: center;
 }
 
 form {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 9px;
 }
 
 label {
   font-size: 14px;
   color: #e7e7e7;
-  margin-top: 4px;
 }
 
 input,
@@ -82,15 +80,15 @@ textarea {
   border: none;
   outline: none;
   border-radius: 10px;
-  padding: 13px;
+  padding: 10px;
   background: #2b2b2b;
   color: white;
-  font-size: 15px;
+  font-size: 14px;
 }
 
 textarea {
   resize: vertical;
-  min-height: 90px;
+  min-height: 70px;
 }
 
 input:focus,
@@ -99,122 +97,98 @@ textarea:focus {
   box-shadow: 0 0 0 2px #b91c1c;
 }
 
-/* Sections produits */
-
-.shopSection {
-  margin-top: 12px;
-  background: rgba(12, 12, 12, 0.92);
-  border: 1px solid #303030;
-  border-radius: 16px;
-  padding: 18px;
-}
-
-.shopSection h2 {
-  font-size: 20px;
-  margin-bottom: 14px;
-}
-
-.productPrice {
-  text-align: center;
-  color: #ff6969;
-  font-weight: bold;
-  margin: 12px 0;
-}
-
-/* Quantité couteaux */
-
-.quantityBox {
+.choiceButtons {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 14px;
-  margin: 10px 0;
+  gap: 10px;
+  margin: 8px 0;
 }
 
-.quantityBox button {
-  width: 45px;
-  height: 45px;
-  padding: 0;
+.choiceButton {
+  flex: 1;
   margin: 0;
-  font-size: 24px;
-  border-radius: 50%;
+  background: #242424;
+  border: 1px solid #3d3d3d;
 }
 
-#knifeQuantityDisplay {
-  min-width: 45px;
+.choiceButton:hover {
+  background: #303030;
+}
+
+.activeChoice {
+  background: #b91c1c !important;
+  border-color: #dc2626 !important;
+}
+
+.orderSection {
+  margin-top: 4px;
+  animation: fade .2s ease;
+}
+
+.priceBox {
+  background: #171717;
+  border: 1px solid #303030;
+  border-radius: 10px;
+  padding: 11px;
+  margin: 8px 0;
   text-align: center;
-  font-size: 24px;
+  font-size: 16px;
+}
+
+.priceBox span {
+  color: #ff4d4d;
   font-weight: bold;
 }
-
-/* Panier */
 
 .cartBox {
   margin-top: 12px;
-  background: rgba(15, 15, 15, 0.96);
-  border: 1px solid #3a3a3a;
-  border-radius: 16px;
-  padding: 18px;
+  background: #141414;
+  border: 1px solid #323232;
+  border-radius: 14px;
+  padding: 14px;
 }
 
 .cartBox h2 {
-  font-size: 20px;
-  margin-bottom: 14px;
+  font-size: 18px;
+  margin-bottom: 10px;
 }
 
 .cartEmpty {
   color: #bdbdbd;
   text-align: center;
   font-size: 14px;
-  padding: 10px 0;
+  padding: 8px 0;
 }
 
 .cartItem {
   background: #222;
   border: 1px solid #333;
-  border-radius: 12px;
-  padding: 12px;
-  margin-bottom: 10px;
-
+  border-radius: 10px;
+  padding: 9px;
+  margin-bottom: 8px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 12px;
-}
-
-.cartItemInfo {
-  flex: 1;
+  gap: 10px;
 }
 
 .cartItemInfo strong {
   display: block;
   color: #ff6969;
-  margin-bottom: 4px;
+  margin-bottom: 3px;
+  font-size: 14px;
 }
 
 .cartItemInfo span {
   color: #d7d7d7;
-  font-size: 14px;
-}
-
-.removeItem {
-  background: #3a3a3a;
-  padding: 8px 11px;
-  border-radius: 8px;
-  margin: 0;
   font-size: 13px;
 }
 
-.removeItem:hover {
-  background: #b91c1c;
-}
-
 .cartTotal {
-  margin-top: 12px;
-  padding-top: 14px;
+  margin-top: 8px;
+  padding-top: 10px;
   border-top: 1px solid #333;
   text-align: right;
-  font-size: 20px;
+  font-size: 18px;
   font-weight: bold;
 }
 
@@ -222,19 +196,17 @@ textarea:focus {
   color: #ff4d4d;
 }
 
-/* Boutons */
-
 button {
-  margin-top: 10px;
+  margin-top: 8px;
   border: none;
-  border-radius: 12px;
-  padding: 15px;
+  border-radius: 10px;
+  padding: 12px;
   background: #b91c1c;
   color: white;
-  font-size: 16px;
+  font-size: 15px;
   font-weight: bold;
   cursor: pointer;
-  transition: 0.2s ease;
+  transition: .2s ease;
 }
 
 button:hover {
@@ -246,6 +218,18 @@ button:disabled {
   background: #555;
   cursor: not-allowed;
   transform: none;
+}
+
+.removeItem {
+  background: #3a3a3a;
+  padding: 7px 9px;
+  border-radius: 8px;
+  margin: 0;
+  font-size: 12px;
+}
+
+.removeItem:hover {
+  background: #b91c1c;
 }
 
 .secondaryButton {
@@ -263,7 +247,6 @@ button:disabled {
 #statusMessage {
   text-align: center;
   font-size: 14px;
-  margin-top: 8px;
 }
 
 .success {
@@ -274,12 +257,10 @@ button:disabled {
   color: #f87171;
 }
 
-/* Récapitulatif */
-
 .modal {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.78);
+  background: rgba(0,0,0,.78);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -294,8 +275,8 @@ button:disabled {
   border: 1px solid #343434;
   border-radius: 18px;
   padding: 24px;
-  box-shadow: 0 20px 70px rgba(0, 0, 0, 0.7);
-  animation: popIn 0.25s ease;
+  box-shadow: 0 20px 70px rgba(0,0,0,.7);
+  animation: popIn .25s ease;
 }
 
 .modalContent h2 {
@@ -323,17 +304,15 @@ button:disabled {
   gap: 12px;
 }
 
-/* Confirmation animée */
-
 .successOverlay {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.82);
+  background: rgba(0,0,0,.82);
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 30;
-  animation: fadeIn 0.25s ease;
+  animation: fadeIn .25s ease;
 }
 
 .successBox {
@@ -344,7 +323,7 @@ button:disabled {
   text-align: center;
   max-width: 360px;
   width: 100%;
-  animation: popIn 0.35s ease;
+  animation: popIn .35s ease;
 }
 
 .checkmark {
@@ -359,7 +338,7 @@ button:disabled {
   justify-content: center;
   font-size: 46px;
   font-weight: bold;
-  animation: bounce 0.6s ease;
+  animation: bounce .6s ease;
 }
 
 .successBox h2 {
@@ -370,29 +349,37 @@ button:disabled {
   color: #cfcfcf;
 }
 
-/* Footer */
-
 .footer {
   position: fixed;
   bottom: 15px;
   right: 20px;
   color: rgba(255,255,255,.75);
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 500;
   z-index: 99999;
   pointer-events: none;
 }
 
 .footer strong {
-  color: #fff;
+  color: white;
 }
 
-/* Animations */
+@keyframes fade {
+  from {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 
 @keyframes popIn {
   from {
     opacity: 0;
-    transform: scale(0.92) translateY(10px);
+    transform: scale(.92) translateY(10px);
   }
 
   to {
@@ -413,7 +400,7 @@ button:disabled {
 
 @keyframes bounce {
   0% {
-    transform: scale(0.5);
+    transform: scale(.5);
   }
 
   60% {
@@ -425,8 +412,6 @@ button:disabled {
   }
 }
 
-/* Mobile */
-
 @media (max-width: 480px) {
   body {
     padding: 15px;
@@ -434,11 +419,15 @@ button:disabled {
   }
 
   .card {
-    padding: 22px;
+    padding: 20px;
   }
 
   .header h1 {
-    font-size: 28px;
+    font-size: 26px;
+  }
+
+  .choiceButtons {
+    flex-direction: column;
   }
 
   .modalActions {
