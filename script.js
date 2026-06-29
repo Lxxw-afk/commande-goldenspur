@@ -209,38 +209,32 @@ previewButton.addEventListener("click", () => {
       description: "Une nouvelle commande vient d’être envoyée depuis le portail Golden Spur.",
       color: 0xb91c1c,
 
-      fields: [
-        {
-          name: "👤 Client",
-          value: `\`${clientName}\``,
-          inline: true
-        },
-        {
-          name: "👥 Groupe",
-          value: `\`${groupName}\``,
-          inline: true
-        },
-        {
-          name: "📞 Téléphone",
-          value: `\`${phoneNumber}\``,
-          inline: true
-        },
-        {
-          name: "🛒 Panier",
-          value: "```" + getCartText() + "```",
-          inline: false
-        },
-        {
-          name: "💰 Montant total",
-          value: `**${formatPrice(total)}**`,
-          inline: true
-        },
-        {
-          name: "📝 Informations supplémentaires",
-          value: extraInfo ? extraInfo : "Aucune information fournie.",
-          inline: false
-        }
-      ],
+     fields: [
+{
+    name: "👤 Client",
+    value: `\`${clientName}\``,
+    inline: true
+},
+{
+    name: "👥 Groupe",
+    value: `\`${groupName}\``,
+    inline: true
+},
+{
+    name: "\u200B",
+    value: "\u200B",
+    inline: false
+},
+{
+    name: "📞 Téléphone",
+    value: `\`${phoneNumber}\``,
+    inline: true
+},
+{
+    name: "💰 Total",
+    value: `**${formatPrice(total)}**`,
+    inline: true
+},
 
       footer: {
         text: "Golden Spur • Système de commandes RP"
