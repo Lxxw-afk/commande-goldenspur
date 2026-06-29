@@ -3,41 +3,39 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Commandes </title>
+  <title>Commandes RP</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+
   <main class="container">
     <section class="card">
+
       <div class="header">
-        <h1>Commandes Golden Spur</h1>
-        <p>Formulaire de commande à ne pas faire fuiter</p>
+        <h1>Commandes RP</h1>
+        <p>Formulaire fictif pour serveur roleplay</p>
       </div>
 
       <div class="warning">
-        ⚠️ Ce site est un outil fictif destiné au roleplay. Aucune commande réelle n’est proposée.
+        ⚠️ Site uniquement destiné au roleplay. Aucune commande réelle.
       </div>
 
       <form id="orderForm">
-        <label for="clientName">Nom / Prénom </label>
+
+        <label for="clientName">Nom / Prénom RP</label>
         <input type="text" id="clientName" placeholder="Ex : Leon Kaelis" required />
 
-       <label for="phoneNumber">Numéro de téléphone RP</label>
-<input
-    type="text"
-    id="phoneNumber"
-    placeholder="Ex : 06 12 34 56 78"
-    required
-/>
+        <label for="phoneNumber">Numéro de téléphone RP</label>
+        <input type="text" id="phoneNumber" placeholder="Ex : 555-1234" required />
 
         <label for="orderType">Type de demande</label>
         <select id="orderType" required>
-          <option value="couteaux">Couteau</option>
+          <option value="couteaux">Couteaux</option>
           <option value="contrat">Contrat point de drogue</option>
         </select>
 
         <div id="knifeSection">
-          <label for="knifeQuantity">Nombre de couteau</label>
+          <label for="knifeQuantity">Nombre de couteaux</label>
           <input type="number" id="knifeQuantity" min="1" value="1" />
 
           <div class="priceBox">
@@ -54,14 +52,35 @@
         </div>
 
         <label for="extraInfo">Informations supplémentaires</label>
-        <textarea id="extraInfo" placeholder="Disponibilités, autres numéros si besoin, détails utiles..."></textarea>
+        <textarea id="extraInfo" placeholder="Disponibilités, lieu de rendez-vous RP, détails utiles..."></textarea>
 
-        <button type="submit">Envoyer la commande</button>
+        <button type="button" id="previewButton">Voir le récapitulatif</button>
 
         <p id="statusMessage"></p>
       </form>
     </section>
   </main>
+
+  <div id="summaryModal" class="modal hidden">
+    <div class="modalContent">
+      <h2>Récapitulatif</h2>
+
+      <div id="summaryContent"></div>
+
+      <div class="modalActions">
+        <button type="button" id="editButton" class="secondaryButton">Modifier</button>
+        <button type="button" id="confirmButton">Valider la commande</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="successOverlay" class="successOverlay hidden">
+    <div class="successBox">
+      <div class="checkmark">✓</div>
+      <h2>Commande envoyée</h2>
+      <p>La demande a bien été transmise sur Discord.</p>
+    </div>
+  </div>
 
   <script src="script.js"></script>
 </body>
