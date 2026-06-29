@@ -21,7 +21,7 @@ function updatePrice() {
 }
 
 function updateSections() {
-  if (orderType.value === "couteaux") {
+  if (orderType.value === "couteau") {
     knifeSection.classList.remove("hidden");
     contractSection.classList.add("hidden");
   } else {
@@ -48,7 +48,7 @@ form.addEventListener("submit", async (event) => {
 
   let embed;
 
-  if (type === "couteaux") {
+  if (type === "couteau") {
     const quantity = Math.max(1, Number(knifeQuantity.value || 1));
     const total = quantity * PRICE_KNIFE;
 
@@ -58,7 +58,7 @@ form.addEventListener("submit", async (event) => {
       fields: [
         { name: "Client ", value: clientName, inline: true },
         { name: "Téléphone", value: phonenumber, inline: true },
-        { name: "Type", value: "Couteaux", inline: true },
+        { name: "Type", value: "Couteau", inline: true },
         { name: "Quantité", value: String(quantity), inline: true },
         { name: "Prix total", value: formatPrice(total), inline: true },
         { name: "Infos supplémentaires", value: extraInfo || "Aucune information" }
