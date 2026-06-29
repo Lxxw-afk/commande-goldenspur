@@ -1,4 +1,4 @@
-const WEBHOOK_URL = "TON_WEBHOOK_DISCORD_ICI";
+const WEBHOOK_URL = "https://discord.com/api/webhooks/1521049796742479953/6v3Bh7X-m18pF-Zh5drP-4vWpbTFSBKPQRpc9ouBErANkeEClM_y9yswG9FWlo4vmzU7";
 
 const PRICE_KNIFE = 6500;
 
