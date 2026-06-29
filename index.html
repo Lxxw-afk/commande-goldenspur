@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Commandes Golden Spur</title>
+  <title>Commandes RP</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
@@ -43,7 +43,7 @@
           </div>
         </div>
 
-        <div id="contractSection" class="hidden">
+        <div id="contractSection" style="display: none;">
           <label for="contractPoint">Point concerné</label>
           <input
             type="text"
@@ -76,17 +76,11 @@
   <div id="summaryModal" class="modal hidden">
     <div class="modalContent">
       <h2>Récapitulatif</h2>
-
       <div id="summaryContent"></div>
 
       <div class="modalActions">
-        <button type="button" id="editButton" class="secondaryButton">
-          Modifier
-        </button>
-
-        <button type="button" id="confirmButton">
-          Valider la commande
-        </button>
+        <button type="button" id="editButton" class="secondaryButton">Modifier</button>
+        <button type="button" id="confirmButton">Valider la commande</button>
       </div>
     </div>
   </div>
@@ -98,6 +92,42 @@
       <p>La demande a bien été transmise sur Discord.</p>
     </div>
   </div>
+
+  <script>
+    const orderType = document.getElementById("orderType");
+    const knifeSection = document.getElementById("knifeSection");
+    const contractSection = document.getElementById("contractSection");
+    const knifeQuantity = document.getElementById("knifeQuantity");
+    const totalPrice = document.getElementById("totalPrice");
+
+    const PRICE_KNIFE = 6500;
+
+    function formatPrice(price) {
+      return price.toLocaleString("fr-FR") + "€";
+    }
+
+    function updatePrice() {
+      const quantity = Math.max(1, Number(knifeQuantity.value || 1));
+      const total = quantity * PRICE_KNIFE;
+      totalPrice.textContent = formatPrice(total);
+    }
+
+    function updateSections() {
+      if (orderType.value === "couteaux") {
+        knifeSection.style.display = "block";
+        contractSection.style.display = "none";
+      } else {
+        knifeSection.style.display = "none";
+        contractSection.style.display = "block";
+      }
+    }
+
+    orderType.addEventListener("change", updateSections);
+    knifeQuantity.addEventListener("input", updatePrice);
+
+    updateSections();
+    updatePrice();
+  </script>
 
   <script src="script.js"></script>
 </body>
