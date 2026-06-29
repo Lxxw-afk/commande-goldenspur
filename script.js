@@ -200,7 +200,7 @@ previewButton.addEventListener("click", () => {
     </div>
   `;
 
- currentPayload = {
+currentPayload = {
   username: "Golden Spur | Commandes",
   avatar_url: "https://cdn.discordapp.com/attachments/1328118372054995097/1503481676737679410/CA0282A5-9778-484E-A9B4-57F894941DE1.png?ex=6a4372ad&is=6a42212d&hm=e65e33cc9db54bec81af1da9fa31859ccf8db6d99ce4fcd5791204bab4b64dc4",
   embeds: [
@@ -209,33 +209,39 @@ previewButton.addEventListener("click", () => {
       description: "Une nouvelle commande vient d’être envoyée depuis le portail Golden Spur.",
       color: 0xb91c1c,
 
-     fields: [
-{
-    name: "👤 Client",
-    value: `\`${clientName}\``,
-    inline: true
-},
-{
-    name: "👥 Groupe",
-    value: `\`${groupName}\``,
-    inline: true
-},
-{
-    name: "\u200B",
-    value: "\u200B",
-    inline: false
-},
-{
-    name: "📞 Téléphone",
-    value: `\`${phoneNumber}\``,
-    inline: true
-},
-{
-    name: "💰 Total",
-    value: `**${formatPrice(total)}**`,
-    inline: true
-},
-],
+      fields: [
+        {
+          name: "👤 Client",
+          value: `\`${clientName}\``,
+          inline: true
+        },
+        {
+          name: "👥 Groupe",
+          value: `\`${groupName}\``,
+          inline: true
+        },
+        {
+          name: "📞 Téléphone",
+          value: `\`${phoneNumber}\``,
+          inline: true
+        },
+        {
+          name: "💰 Total",
+          value: `**${formatPrice(total)}**`,
+          inline: true
+        },
+        {
+          name: "🛒 Panier",
+          value: "```" + getCartText() + "```",
+          inline: false
+        },
+        {
+          name: "📝 Informations",
+          value: extraInfo || "Aucune information fournie.",
+          inline: false
+        }
+      ],
+
       footer: {
         text: "Golden Spur • Système de commandes RP"
       },
@@ -244,7 +250,6 @@ previewButton.addEventListener("click", () => {
     }
   ]
 };
-
   summaryModal.classList.remove("hidden");
 });
 
