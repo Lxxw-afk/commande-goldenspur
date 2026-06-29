@@ -328,3 +328,26 @@ button:disabled {
     color: white;
     transition: .2s;
 }
+/* Force le footer en bas à droite */
+body .footer{
+    position: fixed !important;
+
+    bottom: 15px !important;
+    right: 20px !important;
+
+    left: auto !important;
+    top: auto !important;
+
+    transform: none !important;
+
+    color: rgba(255,255,255,.75);
+    font-size: 14px;
+    font-weight: 500;
+
+    z-index: 99999;
+    pointer-events: none;
+}
+
+body .footer strong{
+    color:#fff;
+}
