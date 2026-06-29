@@ -93,42 +93,6 @@
     </div>
   </div>
 
-  <script>
-    const orderType = document.getElementById("orderType");
-    const knifeSection = document.getElementById("knifeSection");
-    const contractSection = document.getElementById("contractSection");
-    const knifeQuantity = document.getElementById("knifeQuantity");
-    const totalPrice = document.getElementById("totalPrice");
-
-    const PRICE_KNIFE = 6500;
-
-    function formatPrice(price) {
-      return price.toLocaleString("fr-FR") + "€";
-    }
-
-    function updatePrice() {
-      const quantity = Math.max(1, Number(knifeQuantity.value || 1));
-      const total = quantity * PRICE_KNIFE;
-      totalPrice.textContent = formatPrice(total);
-    }
-
-    function updateSections() {
-      if (orderType.value === "couteaux") {
-        knifeSection.style.display = "block";
-        contractSection.style.display = "none";
-      } else {
-        knifeSection.style.display = "none";
-        contractSection.style.display = "block";
-      }
-    }
-
-    orderType.addEventListener("change", updateSections);
-    knifeQuantity.addEventListener("input", updatePrice);
-
-    updateSections();
-    updatePrice();
-  </script>
-
   <script src="script.js"></script>
 
   <footer class="footer">
