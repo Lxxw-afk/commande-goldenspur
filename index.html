@@ -12,7 +12,7 @@
     <section class="card">
 
       <div class="header">
-        <h1>Golden Spur</h1>
+        <h1>Commande Golden Spur</h1>
         <p>Commandez rapidement, nous nous chargeons du reste.</p>
       </div>
 
@@ -23,53 +23,56 @@
       <form id="orderForm">
 
         <label for="clientName">Nom / Prénom</label>
-        <input type="text" id="clientName" placeholder="Ex : John Lefebvre " required />
+        <input type="text" id="clientName" placeholder="Ex : John Lefebvre" required />
 
         <label for="groupName">Groupe</label>
         <input type="text" id="groupName" placeholder="Ex : Indépendant, Golden Spur..." required />
 
         <label for="phoneNumber">Numéro de téléphone</label>
-        <input type="text" id="phoneNumber" placeholder="Ex : 06 12 12 34 45" required />
+        <input type="text" id="phoneNumber" placeholder="Ex : 06 12 33 45 96" required />
 
-        <div class="shopSection">
-          <h2>🔪 Couteaux</h2>
+        <div class="choiceButtons">
+          <button type="button" id="showKnivesButton" class="choiceButton activeChoice">
+            Couteaux
+          </button>
 
-          <label for="knifeQuantityInput">Quantité</label>
-<input
-  type="number"
-  id="knifeQuantityInput"
-  min="1"
-  value="1"
-  placeholder="Ex : 5"
-/>
-
-          <p class="productPrice">6 500€ / unité</p>
-
-          <button type="button" id="addKnivesButton">
-            Ajouter les couteaux au panier
+          <button type="button" id="showLsdButton" class="choiceButton">
+            Contrat LSD
           </button>
         </div>
 
-        <div class="shopSection">
-          <h2>🧪 Contrat LSD</h2>
+        <div id="knifeSection" class="orderSection">
+          <label for="knifeQuantityInput">Nombre de couteaux</label>
+          <input type="number" id="knifeQuantityInput" min="1" value="1" />
 
+          <div class="priceBox">
+            Prix total : <span id="knifePreviewPrice">6 500€</span>
+          </div>
+
+          <button type="button" id="addKnivesButton">
+            Ajouter au panier
+          </button>
+        </div>
+
+        <div id="lsdSection" class="orderSection hidden">
           <label for="lsdType">Type de contrat</label>
           <select id="lsdType">
-            <option value="cite" data-name="LSD - Cité / Famille" data-price="150000">
-              LSD - Cité / Famille — 150 000€
-            </option>
             <option value="independant" data-name="LSD - Indépendant" data-price="75000">
               LSD - Indépendant — 75 000€
+            </option>
+
+            <option value="cite" data-name="LSD - Cité / Famille" data-price="150000">
+              LSD - Cité / Famille — 150 000€
             </option>
           </select>
 
           <button type="button" id="addLsdButton">
-            Ajouter le contrat au panier
+            Ajouter au panier
           </button>
         </div>
 
         <div class="cartBox">
-          <h2>🛒 Votre panier</h2>
+          <h2>Votre panier</h2>
           <div id="cartItems"></div>
 
           <div class="cartTotal">
@@ -89,6 +92,7 @@
 
         <p id="statusMessage"></p>
       </form>
+
     </section>
   </main>
 
