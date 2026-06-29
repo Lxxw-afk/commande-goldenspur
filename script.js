@@ -1,12 +1,22 @@
 const WEBHOOK_URL = "https://discord.com/api/webhooks/1521049796742479953/6v3Bh7X-m18pF-Zh5drP-4vWpbTFSBKPQRpc9ouBErANkeEClM_y9yswG9FWlo4vmzU7";
+
 const PRICE_KNIFE = 6500;
 
-const form = document.getElementById("orderForm");
-const orderType = document.getElementById("orderType");
-const knifeSection = document.getElementById("knifeSection");
-const contractSection = document.getElementById("contractSection");
-const knifeQuantity = document.getElementById("knifeQuantity");
-const totalPrice = document.getElementById("totalPrice");
+const clientNameInput = document.getElementById("clientName");
+const groupNameInput = document.getElementById("groupName");
+const phoneNumberInput = document.getElementById("phoneNumber");
+const extraInfoInput = document.getElementById("extraInfo");
+
+const minusKnife = document.getElementById("minusKnife");
+const plusKnife = document.getElementById("plusKnife");
+const knifeQuantityDisplay = document.getElementById("knifeQuantityDisplay");
+const addKnivesButton = document.getElementById("addKnivesButton");
+
+const lsdType = document.getElementById("lsdType");
+const addLsdButton = document.getElementById("addLsdButton");
+
+const cartItems = document.getElementById("cartItems");
+const cartTotal = document.getElementById("cartTotal");
 
 const previewButton = document.getElementById("previewButton");
 const summaryModal = document.getElementById("summaryModal");
@@ -14,133 +24,214 @@ const summaryContent = document.getElementById("summaryContent");
 const editButton = document.getElementById("editButton");
 const confirmButton = document.getElementById("confirmButton");
 const successOverlay = document.getElementById("successOverlay");
+const form = document.getElementById("orderForm");
 
+let knifeQuantity = 1;
+let cart = [];
 let currentPayload = null;
 
 function formatPrice(price) {
   return price.toLocaleString("fr-FR") + "€";
 }
 
-function updatePrice() {
-  const quantity = Math.max(1, Number(knifeQuantity.value || 1));
-  totalPrice.textContent = formatPrice(quantity * PRICE_KNIFE);
+function updateKnifeDisplay() {
+  knifeQuantityDisplay.textContent = knifeQuantity;
 }
 
-function updateSections() {
-  if (orderType.value === "couteaux") {
-    knifeSection.style.display = "block";
-    contractSection.style.display = "none";
-  } else {
-    knifeSection.style.display = "none";
-    contractSection.style.display = "block";
-  }
-}
+function updateCart() {
+  cartItems.innerHTML = "";
 
-function getData() {
-  const clientName = document.getElementById("clientName").value.trim();
-  const phoneNumber = document.getElementById("phoneNumber").value.trim();
-  const extraInfo = document.getElementById("extraInfo").value.trim();
-
-  if (!clientName || !phoneNumber) {
-    alert("Merci de remplir le nom et le numéro de téléphone.");
-    return null;
+  if (cart.length === 0) {
+    cartItems.innerHTML = `<p class="cartEmpty">Votre panier est vide.</p>`;
+    cartTotal.textContent = "0€";
+    return;
   }
 
-  if (orderType.value === "couteaux") {
-    const quantity = Math.max(1, Number(knifeQuantity.value || 1));
-    const total = quantity * PRICE_KNIFE;
+  let total = 0;
 
-    return {
-      type: "couteaux",
-      clientName,
-      phoneNumber,
-      quantity,
-      total,
-      extraInfo
-    };
-  }
+  cart.forEach((item, index) => {
+    total += item.total;
 
-  const contractPoint = document.getElementById("contractPoint").value.trim();
-  const contractDetails = document.getElementById("contractDetails").value.trim();
+    cartItems.innerHTML += `
+      <div class="cartItem">
+        <div class="cartItemInfo">
+          <strong>${item.name}</strong>
+          <span>${item.description}</span>
+        </div>
 
-  return {
-    type: "contrat",
-    clientName,
-    phoneNumber,
-    contractPoint,
-    contractDetails,
-    extraInfo
-  };
-}
-
-function showSummary(data) {
-  if (data.type === "couteaux") {
-    summaryContent.innerHTML = `
-      <div class="summaryLine"><strong>Nom</strong>${data.clientName}</div>
-      <div class="summaryLine"><strong>Téléphone</strong>${data.phoneNumber}</div>
-      <div class="summaryLine"><strong>Commande</strong>Couteaux</div>
-      <div class="summaryLine"><strong>Quantité</strong>${data.quantity}</div>
-      <div class="summaryLine"><strong>Prix total</strong>${formatPrice(data.total)}</div>
-      <div class="summaryLine"><strong>Informations</strong>${data.extraInfo || "Aucune"}</div>
+        <button type="button" class="removeItem" onclick="removeItem(${index})">
+          Retirer
+        </button>
+      </div>
     `;
-  } else {
-    summaryContent.innerHTML = `
-      <div class="summaryLine"><strong>Nom</strong>${data.clientName}</div>
-      <div class="summaryLine"><strong>Téléphone</strong>${data.phoneNumber}</div>
-      <div class="summaryLine"><strong>Type</strong>Contrat point de drogue</div>
-      <div class="summaryLine"><strong>Point concerné</strong>${data.contractPoint || "Non précisé"}</div>
-      <div class="summaryLine"><strong>Détails</strong>${data.contractDetails || "Non précisé"}</div>
-      <div class="summaryLine"><strong>Informations</strong>${data.extraInfo || "Aucune"}</div>
-    `;
-  }
+  });
 
-  summaryModal.classList.remove("hidden");
+  cartTotal.textContent = formatPrice(total);
 }
 
-function buildDiscordPayload(data) {
-  if (data.type === "couteaux") {
-    return {
-      username: "Commandes Golden Spur",
-      embeds: [{
-        title: "🔪 Nouvelle commande",
-        color: 15158332,
-        fields: [
-          { name: "Client", value: data.clientName, inline: true },
-          { name: "Téléphone", value: data.phoneNumber, inline: true },
-          { name: "Commande", value: "Couteaux", inline: true },
-          { name: "Quantité", value: String(data.quantity), inline: true },
-          { name: "Prix total", value: formatPrice(data.total), inline: true },
-          { name: "Informations", value: data.extraInfo || "Aucune" }
-        ],
-        timestamp: new Date().toISOString()
-      }]
-    };
-  }
+function removeItem(index) {
+  cart.splice(index, 1);
+  updateCart();
+}
 
-  return {
-    username: "Commandes Golden Spur",
-    embeds: [{
-      title: "📍 Nouveau contrat",
-      color: 3066993,
-      fields: [
-        { name: "Client", value: data.clientName, inline: true },
-        { name: "Téléphone", value: data.phoneNumber, inline: true },
-        { name: "Type", value: "Contrat point de drogue", inline: true },
-        { name: "Point concerné", value: data.contractPoint || "Non précisé" },
-        { name: "Détails", value: data.contractDetails || "Non précisé" },
-        { name: "Informations", value: data.extraInfo || "Aucune" }
-      ],
-      timestamp: new Date().toISOString()
-    }]
-  };
+minusKnife.addEventListener("click", () => {
+  if (knifeQuantity > 1) {
+    knifeQuantity--;
+    updateKnifeDisplay();
+  }
+});
+
+plusKnife.addEventListener("click", () => {
+  knifeQuantity++;
+  updateKnifeDisplay();
+});
+
+addKnivesButton.addEventListener("click", () => {
+  const total = knifeQuantity * PRICE_KNIFE;
+
+  cart.push({
+    type: "couteaux",
+    name: "🔪 Couteaux",
+    quantity: knifeQuantity,
+    price: PRICE_KNIFE,
+    total: total,
+    description: `${knifeQuantity} x ${formatPrice(PRICE_KNIFE)} = ${formatPrice(total)}`
+  });
+
+  knifeQuantity = 1;
+  updateKnifeDisplay();
+  updateCart();
+});
+
+addLsdButton.addEventListener("click", () => {
+  const selectedOption = lsdType.options[lsdType.selectedIndex];
+
+  const name = selectedOption.dataset.name;
+  const price = Number(selectedOption.dataset.price);
+
+  cart.push({
+    type: "lsd",
+    name: "🧪 " + name,
+    quantity: 1,
+    price: price,
+    total: price,
+    description: formatPrice(price)
+  });
+
+  updateCart();
+});
+
+function getCartTotal() {
+  return cart.reduce((sum, item) => sum + item.total, 0);
+}
+
+function getCartText() {
+  return cart
+    .map((item) => `- ${item.name} : ${item.description}`)
+    .join("\n");
+}
+
+function escapeHtml(text) {
+  return String(text)
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
 }
 
 previewButton.addEventListener("click", () => {
-  const data = getData();
-  if (!data) return;
+  const clientName = clientNameInput.value.trim();
+  const groupName = groupNameInput.value.trim();
+  const phoneNumber = phoneNumberInput.value.trim();
+  const extraInfo = extraInfoInput.value.trim();
 
-  currentPayload = buildDiscordPayload(data);
-  showSummary(data);
+  if (!clientName || !groupName || !phoneNumber) {
+    alert("Merci de remplir le nom, le groupe et le numéro de téléphone.");
+    return;
+  }
+
+  if (cart.length === 0) {
+    alert("Votre panier est vide.");
+    return;
+  }
+
+  const total = getCartTotal();
+
+  summaryContent.innerHTML = `
+    <div class="summaryLine">
+      <strong>Nom / Prénom</strong>
+      ${escapeHtml(clientName)}
+    </div>
+
+    <div class="summaryLine">
+      <strong>Groupe</strong>
+      ${escapeHtml(groupName)}
+    </div>
+
+    <div class="summaryLine">
+      <strong>Téléphone</strong>
+      ${escapeHtml(phoneNumber)}
+    </div>
+
+    <div class="summaryLine">
+      <strong>Panier</strong>
+      ${escapeHtml(getCartText()).replaceAll("\n", "<br>")}
+    </div>
+
+    <div class="summaryLine">
+      <strong>Total</strong>
+      ${formatPrice(total)}
+    </div>
+
+    <div class="summaryLine">
+      <strong>Informations supplémentaires</strong>
+      ${escapeHtml(extraInfo || "Aucune")}
+    </div>
+  `;
+
+  currentPayload = {
+    username: "Commandes Golden Spur",
+    embeds: [
+      {
+        title: "🛒 Nouvelle commande",
+        color: 15158332,
+        fields: [
+          {
+            name: "👤 Client",
+            value: clientName,
+            inline: true
+          },
+          {
+            name: "👥 Groupe",
+            value: groupName,
+            inline: true
+          },
+          {
+            name: "📞 Téléphone",
+            value: phoneNumber,
+            inline: true
+          },
+          {
+            name: "📦 Panier",
+            value: getCartText()
+          },
+          {
+            name: "💰 Total",
+            value: formatPrice(total),
+            inline: true
+          },
+          {
+            name: "📝 Informations",
+            value: extraInfo || "Aucune"
+          }
+        ],
+        timestamp: new Date().toISOString()
+      }
+    ]
+  };
+
+  summaryModal.classList.remove("hidden");
 });
 
 editButton.addEventListener("click", () => {
@@ -176,12 +267,15 @@ confirmButton.addEventListener("click", async () => {
 
     setTimeout(() => {
       successOverlay.classList.add("hidden");
-      form.reset();
-      knifeQuantity.value = 1;
-      updatePrice();
-      updateSections();
-    }, 2500);
 
+      form.reset();
+      cart = [];
+      knifeQuantity = 1;
+      currentPayload = null;
+
+      updateKnifeDisplay();
+      updateCart();
+    }, 2500);
   } catch (error) {
     alert("Erreur lors de l'envoi de la commande.");
   }
@@ -190,8 +284,5 @@ confirmButton.addEventListener("click", async () => {
   confirmButton.textContent = "Valider la commande";
 });
 
-knifeQuantity.addEventListener("input", updatePrice);
-orderType.addEventListener("change", updateSections);
-
-updatePrice();
-updateSections();
+updateKnifeDisplay();
+updateCart();
