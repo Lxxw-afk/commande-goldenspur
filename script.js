@@ -235,7 +235,7 @@ previewButton.addEventListener("click", () => {
     value: `**${formatPrice(total)}**`,
     inline: true
 },
-
+],
       footer: {
         text: "Golden Spur • Système de commandes RP"
       },
