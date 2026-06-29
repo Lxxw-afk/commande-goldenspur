@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Commandes </title>
+  <title>Commandes RP</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
@@ -12,7 +12,7 @@
     <section class="card">
 
       <div class="header">
-        <h1>Commandes </h1>
+        <h1>Commandes</h1>
         <p>Formulaire fictif pour serveur roleplay</p>
       </div>
 
@@ -22,10 +22,10 @@
 
       <form id="orderForm">
 
-        <label for="clientName">Nom / Prénom </label>
+        <label for="clientName">Nom / Prénom</label>
         <input type="text" id="clientName" placeholder="Ex : Leon Kaelis" required />
 
-        <label for="phoneNumber">Numéro de téléphone </label>
+        <label for="phoneNumber">Numéro de téléphone</label>
         <input type="text" id="phoneNumber" placeholder="Ex : 555-1234" required />
 
         <label for="orderType">Type de demande</label>
@@ -35,7 +35,7 @@
         </select>
 
         <div id="knifeSection">
-          <label for="knifeQuantity">Nombre de couteau</label>
+          <label for="knifeQuantity">Nombre de couteaux</label>
           <input type="number" id="knifeQuantity" min="1" value="1" />
 
           <div class="priceBox">
@@ -45,16 +45,28 @@
 
         <div id="contractSection" class="hidden">
           <label for="contractPoint">Point concerné</label>
-          <input type="text" id="contractPoint" placeholder=" LSD uniquement " />
+          <input
+            type="text"
+            id="contractPoint"
+            placeholder="LSD uniquement"
+          />
 
           <label for="contractDetails">Détails du contrat</label>
-          <textarea id="contractDetails" placeholder="Explique la demande RP..."></textarea>
+          <textarea
+            id="contractDetails"
+            placeholder="Explique la demande RP..."
+          ></textarea>
         </div>
 
         <label for="extraInfo">Informations supplémentaires</label>
-        <textarea id="extraInfo" placeholder="Disponibilités, lieu de rendez-vous RP, détails utiles..."></textarea>
+        <textarea
+          id="extraInfo"
+          placeholder="Disponibilités, lieu de rendez-vous RP, détails utiles..."
+        ></textarea>
 
-        <button type="button" id="previewButton">Voir le récapitulatif</button>
+        <button type="button" id="previewButton">
+          Voir le récapitulatif
+        </button>
 
         <p id="statusMessage"></p>
       </form>
@@ -68,8 +80,13 @@
       <div id="summaryContent"></div>
 
       <div class="modalActions">
-        <button type="button" id="editButton" class="secondaryButton">Modifier</button>
-        <button type="button" id="confirmButton">Valider la commande</button>
+        <button type="button" id="editButton" class="secondaryButton">
+          Modifier
+        </button>
+
+        <button type="button" id="confirmButton">
+          Valider la commande
+        </button>
       </div>
     </div>
   </div>
