@@ -15,7 +15,7 @@ body {
 
   background:
     linear-gradient(rgba(0, 0, 0, 0.72), rgba(0, 0, 0, 0.82)),
-    url("background.jpg");
+    url("images/Golden.png");
 
   background-size: cover;
   background-position: center;
