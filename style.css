@@ -310,12 +310,13 @@ button:disabled {
 .footer{
     position: fixed;
     bottom: 15px;
-    left: 50%;
-    transform: translateX(-50%);
+    right: 20px;
+
     color: rgba(255,255,255,.65);
     font-size: 13px;
     letter-spacing: .5px;
     user-select: none;
+    z-index: 999;
 }
 
 .footer strong{
