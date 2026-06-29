@@ -202,7 +202,7 @@ previewButton.addEventListener("click", () => {
 
  currentPayload = {
   username: "Golden Spur | Commandes",
-  avatar_url: "https://i.imgur.com/2yaf2wb.png",
+  avatar_url: "https://chatgpt.com/backend-api/estuary/content?id=file_00000000210471f4b938e6a9d8ad4c9f&ts=495209&p=fs&cid=1&sig=44c54e723eccc25d5672ced83b80e5f0f40582fce9eab9fbcde468c9f66972ed&v=0",
   embeds: [
     {
       title: "📦 Nouvelle commande reçue",
