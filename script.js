@@ -7,7 +7,14 @@ const groupNameInput = document.getElementById("groupName");
 const phoneNumberInput = document.getElementById("phoneNumber");
 const extraInfoInput = document.getElementById("extraInfo");
 
+const showKnivesButton = document.getElementById("showKnivesButton");
+const showLsdButton = document.getElementById("showLsdButton");
+
+const knifeSection = document.getElementById("knifeSection");
+const lsdSection = document.getElementById("lsdSection");
+
 const knifeQuantityInput = document.getElementById("knifeQuantityInput");
+const knifePreviewPrice = document.getElementById("knifePreviewPrice");
 const addKnivesButton = document.getElementById("addKnivesButton");
 
 const lsdType = document.getElementById("lsdType");
@@ -29,6 +36,27 @@ let currentPayload = null;
 
 function formatPrice(price) {
   return price.toLocaleString("fr-FR") + "€";
+}
+
+function updateKnifePrice() {
+  const quantity = Math.max(1, Number(knifeQuantityInput.value || 1));
+  knifePreviewPrice.textContent = formatPrice(quantity * PRICE_KNIFE);
+}
+
+function showSection(section) {
+  if (section === "knives") {
+    knifeSection.classList.remove("hidden");
+    lsdSection.classList.add("hidden");
+
+    showKnivesButton.classList.add("activeChoice");
+    showLsdButton.classList.remove("activeChoice");
+  } else {
+    knifeSection.classList.add("hidden");
+    lsdSection.classList.remove("hidden");
+
+    showKnivesButton.classList.remove("activeChoice");
+    showLsdButton.classList.add("activeChoice");
+  }
 }
 
 function updateCart() {
@@ -73,7 +101,7 @@ addKnivesButton.addEventListener("click", () => {
 
   cart.push({
     type: "couteaux",
-    name: "🔪 Couteaux",
+    name: "Couteaux",
     quantity: quantity,
     price: PRICE_KNIFE,
     total: total,
@@ -81,6 +109,7 @@ addKnivesButton.addEventListener("click", () => {
   });
 
   knifeQuantityInput.value = 1;
+  updateKnifePrice();
   updateCart();
 });
 
@@ -92,7 +121,7 @@ addLsdButton.addEventListener("click", () => {
 
   cart.push({
     type: "lsd",
-    name: "🧪 " + name,
+    name: name,
     quantity: 1,
     price: price,
     total: price,
@@ -175,35 +204,35 @@ previewButton.addEventListener("click", () => {
     username: "Commandes Golden Spur",
     embeds: [
       {
-        title: "🛒 Nouvelle commande",
+        title: "Nouvelle commande",
         color: 15158332,
         fields: [
           {
-            name: "👤 Client",
+            name: "Client",
             value: clientName,
             inline: true
           },
           {
-            name: "👥 Groupe",
+            name: "Groupe",
             value: groupName,
             inline: true
           },
           {
-            name: "📞 Téléphone",
+            name: "Téléphone",
             value: phoneNumber,
             inline: true
           },
           {
-            name: "📦 Panier",
+            name: "Panier",
             value: getCartText()
           },
           {
-            name: "💰 Total",
+            name: "Total",
             value: formatPrice(total),
             inline: true
           },
           {
-            name: "📝 Informations",
+            name: "Informations",
             value: extraInfo || "Aucune"
           }
         ],
@@ -252,8 +281,11 @@ confirmButton.addEventListener("click", async () => {
       form.reset();
       cart = [];
       currentPayload = null;
+
       knifeQuantityInput.value = 1;
 
+      showSection("knives");
+      updateKnifePrice();
       updateCart();
     }, 2500);
   } catch (error) {
@@ -264,4 +296,16 @@ confirmButton.addEventListener("click", async () => {
   confirmButton.textContent = "Valider la commande";
 });
 
+showKnivesButton.addEventListener("click", () => {
+  showSection("knives");
+});
+
+showLsdButton.addEventListener("click", () => {
+  showSection("lsd");
+});
+
+knifeQuantityInput.addEventListener("input", updateKnifePrice);
+
+showSection("knives");
+updateKnifePrice();
 updateCart();
