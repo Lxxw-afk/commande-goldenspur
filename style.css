@@ -11,11 +11,11 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 20px;
+  padding: 25px;
 
   background:
-    linear-gradient(rgba(0, 0, 0, 0.72), rgba(0, 0, 0, 0.82)),
-    url("images/Golden.png");
+    linear-gradient(rgba(0, 0, 0, 0.72), rgba(0, 0, 0, 0.85)),
+    url("background.jpg");
 
   background-size: cover;
   background-position: center;
@@ -24,11 +24,11 @@ body {
 
 .container {
   width: 100%;
-  max-width: 540px;
+  max-width: 620px;
 }
 
 .card {
-  background: rgba(18, 18, 18, 0.91);
+  background: rgba(18, 18, 18, 0.92);
   border: 1px solid rgba(255, 255, 255, 0.13);
   border-radius: 18px;
   padding: 28px;
@@ -42,7 +42,7 @@ body {
 }
 
 .header h1 {
-  font-size: 32px;
+  font-size: 34px;
   margin-bottom: 6px;
   letter-spacing: 1px;
 }
@@ -60,6 +60,7 @@ body {
   border-radius: 12px;
   font-size: 13px;
   margin-bottom: 20px;
+  text-align: center;
 }
 
 form {
@@ -98,19 +99,130 @@ textarea:focus {
   box-shadow: 0 0 0 2px #b91c1c;
 }
 
-.priceBox {
-  background: #151515;
-  border: 1px solid #333;
-  border-radius: 12px;
-  padding: 14px;
-  margin-top: 10px;
-  font-size: 17px;
+/* Sections produits */
+
+.shopSection {
+  margin-top: 12px;
+  background: rgba(12, 12, 12, 0.92);
+  border: 1px solid #303030;
+  border-radius: 16px;
+  padding: 18px;
 }
 
-.priceBox span {
-  color: #ff4d4d;
+.shopSection h2 {
+  font-size: 20px;
+  margin-bottom: 14px;
+}
+
+.productPrice {
+  text-align: center;
+  color: #ff6969;
+  font-weight: bold;
+  margin: 12px 0;
+}
+
+/* Quantité couteaux */
+
+.quantityBox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  margin: 10px 0;
+}
+
+.quantityBox button {
+  width: 45px;
+  height: 45px;
+  padding: 0;
+  margin: 0;
+  font-size: 24px;
+  border-radius: 50%;
+}
+
+#knifeQuantityDisplay {
+  min-width: 45px;
+  text-align: center;
+  font-size: 24px;
   font-weight: bold;
 }
+
+/* Panier */
+
+.cartBox {
+  margin-top: 12px;
+  background: rgba(15, 15, 15, 0.96);
+  border: 1px solid #3a3a3a;
+  border-radius: 16px;
+  padding: 18px;
+}
+
+.cartBox h2 {
+  font-size: 20px;
+  margin-bottom: 14px;
+}
+
+.cartEmpty {
+  color: #bdbdbd;
+  text-align: center;
+  font-size: 14px;
+  padding: 10px 0;
+}
+
+.cartItem {
+  background: #222;
+  border: 1px solid #333;
+  border-radius: 12px;
+  padding: 12px;
+  margin-bottom: 10px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.cartItemInfo {
+  flex: 1;
+}
+
+.cartItemInfo strong {
+  display: block;
+  color: #ff6969;
+  margin-bottom: 4px;
+}
+
+.cartItemInfo span {
+  color: #d7d7d7;
+  font-size: 14px;
+}
+
+.removeItem {
+  background: #3a3a3a;
+  padding: 8px 11px;
+  border-radius: 8px;
+  margin: 0;
+  font-size: 13px;
+}
+
+.removeItem:hover {
+  background: #b91c1c;
+}
+
+.cartTotal {
+  margin-top: 12px;
+  padding-top: 14px;
+  border-top: 1px solid #333;
+  text-align: right;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.cartTotal span {
+  color: #ff4d4d;
+}
+
+/* Boutons */
 
 button {
   margin-top: 10px;
@@ -163,6 +275,7 @@ button:disabled {
 }
 
 /* Récapitulatif */
+
 .modal {
   position: fixed;
   inset: 0;
@@ -176,7 +289,7 @@ button:disabled {
 
 .modalContent {
   width: 100%;
-  max-width: 480px;
+  max-width: 500px;
   background: #151515;
   border: 1px solid #343434;
   border-radius: 18px;
@@ -211,6 +324,7 @@ button:disabled {
 }
 
 /* Confirmation animée */
+
 .successOverlay {
   position: fixed;
   inset: 0;
@@ -256,7 +370,25 @@ button:disabled {
   color: #cfcfcf;
 }
 
+/* Footer */
+
+.footer {
+  position: fixed;
+  bottom: 15px;
+  right: 20px;
+  color: rgba(255,255,255,.75);
+  font-size: 14px;
+  font-weight: 500;
+  z-index: 99999;
+  pointer-events: none;
+}
+
+.footer strong {
+  color: #fff;
+}
+
 /* Animations */
+
 @keyframes popIn {
   from {
     opacity: 0;
@@ -294,61 +426,28 @@ button:disabled {
 }
 
 /* Mobile */
+
 @media (max-width: 480px) {
+  body {
+    padding: 15px;
+    align-items: flex-start;
+  }
+
   .card {
     padding: 22px;
   }
 
   .header h1 {
-    font-size: 26px;
+    font-size: 28px;
   }
 
   .modalActions {
     grid-template-columns: 1fr;
   }
+
+  .footer {
+    font-size: 11px;
+    right: 10px;
+    bottom: 8px;
+  }
 }
-.footer{
-    position: fixed;
-    bottom: 15px;
-    right: 20px;
-
-    color: rgba(255,255,255,.65);
-    font-size: 13px;
-    letter-spacing: .5px;
-    user-select: none;
-    z-index: 999;
-}
-
-.footer strong{
-    color: #ffffff;
-    font-weight: 600;
-}
-
-.footer:hover{
-    color: white;
-    transition: .2s;
-}
-/* Force le footer en bas à droite */
-body .footer{
-    position: fixed !important;
-
-    bottom: 15px !important;
-    right: 20px !important;
-
-    left: auto !important;
-    top: auto !important;
-
-    transform: none !important;
-
-    color: rgba(255,255,255,.75);
-    font-size: 14px;
-    font-weight: 500;
-
-    z-index: 99999;
-    pointer-events: none;
-}
-
-body .footer strong{
-    color:#fff;
-}
-
