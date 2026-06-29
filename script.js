@@ -200,46 +200,56 @@ previewButton.addEventListener("click", () => {
     </div>
   `;
 
-  currentPayload = {
-    username: "Commandes Golden Spur",
-    embeds: [
-      {
-        title: "Nouvelle commande",
-        color: 15158332,
-        fields: [
-          {
-            name: "Client",
-            value: clientName,
-            inline: true
-          },
-          {
-            name: "Groupe",
-            value: groupName,
-            inline: true
-          },
-          {
-            name: "Téléphone",
-            value: phoneNumber,
-            inline: true
-          },
-          {
-            name: "Panier",
-            value: getCartText()
-          },
-          {
-            name: "Total",
-            value: formatPrice(total),
-            inline: true
-          },
-          {
-            name: "Informations",
-            value: extraInfo || "Aucune"
-          }
-        ],
-        timestamp: new Date().toISOString()
-      }
-    ]
-  };
+ currentPayload = {
+  username: "Golden Spur | Commandes",
+  avatar_url: "https://i.imgur.com/2yaf2wb.png",
+  embeds: [
+    {
+      title: "📦 Nouvelle commande reçue",
+      description: "Une nouvelle commande vient d’être envoyée depuis le portail Golden Spur.",
+      color: 0xb91c1c,
+
+      fields: [
+        {
+          name: "👤 Client",
+          value: `\`${clientName}\``,
+          inline: true
+        },
+        {
+          name: "👥 Groupe",
+          value: `\`${groupName}\``,
+          inline: true
+        },
+        {
+          name: "📞 Téléphone",
+          value: `\`${phoneNumber}\``,
+          inline: true
+        },
+        {
+          name: "🛒 Panier",
+          value: "```" + getCartText() + "```",
+          inline: false
+        },
+        {
+          name: "💰 Montant total",
+          value: `**${formatPrice(total)}**`,
+          inline: true
+        },
+        {
+          name: "📝 Informations supplémentaires",
+          value: extraInfo ? extraInfo : "Aucune information fournie.",
+          inline: false
+        }
+      ],
+
+      footer: {
+        text: "Golden Spur • Système de commandes RP"
+      },
+
+      timestamp: new Date().toISOString()
+    }
+  ]
+};
 
   summaryModal.classList.remove("hidden");
 });
