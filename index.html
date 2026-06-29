@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Commandes RP</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="container">
+    <section class="card">
+      <div class="header">
+        <h1>Commandes RP</h1>
+        <p>Formulaire de commande uniquement pour serveur RP</p>
+      </div>
+
+      <div class="warning">
+        ⚠️ Ce site est un outil fictif destiné au roleplay. Aucune commande réelle n’est proposée.
+      </div>
+
+      <form id="orderForm">
+        <label for="clientName">Nom / Prénom RP</label>
+        <input type="text" id="clientName" placeholder="Ex : Leon Kaelis" required />
+
+        <label for="discordName">Discord</label>
+        <input type="text" id="discordName" placeholder="Ex : Lxxw" required />
+
+        <label for="orderType">Type de demande</label>
+        <select id="orderType" required>
+          <option value="couteaux">Couteaux</option>
+          <option value="contrat">Contrat point de drogue</option>
+        </select>
+
+        <div id="knifeSection">
+          <label for="knifeQuantity">Nombre de couteaux</label>
+          <input type="number" id="knifeQuantity" min="1" value="1" />
+
+          <div class="priceBox">
+            Prix total : <span id="totalPrice">6 500€</span>
+          </div>
+        </div>
+
+        <div id="contractSection" class="hidden">
+          <label for="contractPoint">Point concerné</label>
+          <input type="text" id="contractPoint" placeholder="Ex : Weed / Cocaïne / Meth..." />
+
+          <label for="contractDetails">Détails du contrat</label>
+          <textarea id="contractDetails" placeholder="Explique la demande RP..."></textarea>
+        </div>
+
+        <label for="extraInfo">Informations supplémentaires</label>
+        <textarea id="extraInfo" placeholder="Disponibilités, lieu de rendez-vous RP, détails utiles..."></textarea>
+
+        <button type="submit">Envoyer la commande</button>
+
+        <p id="statusMessage"></p>
+      </form>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
