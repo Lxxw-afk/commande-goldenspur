@@ -42,7 +42,7 @@ form.addEventListener("submit", async (event) => {
   }
 
   const clientName = document.getElementById("clientName").value.trim();
-  const discordName = document.getElementById("discordName").value.trim();
+  const phoneNumber = document.getElementById("phoneNumber").value.trim();
   const extraInfo = document.getElementById("extraInfo").value.trim();
   const type = orderType.value;
 
@@ -53,11 +53,11 @@ form.addEventListener("submit", async (event) => {
     const total = quantity * PRICE_KNIFE;
 
     embed = {
-      title: "Nouvelle commande RP",
+      title: "Nouvelle commande ",
       color: 12000284,
       fields: [
-        { name: "Client RP", value: clientName, inline: true },
-        { name: "Discord", value: discordName, inline: true },
+        { name: "Client ", value: clientName, inline: true },
+        { name: "Téléphone", value: phonenumber, inline: true },
         { name: "Type", value: "Couteaux", inline: true },
         { name: "Quantité", value: String(quantity), inline: true },
         { name: "Prix total", value: formatPrice(total), inline: true },
